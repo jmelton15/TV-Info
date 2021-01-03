@@ -34,9 +34,15 @@ async function searchShows(q) {
 }
 
 
-
 /** Populate shows list:
  *     - given list of shows, add shows to DOM
+ *     - check was added to see if image exists
+ *     - if not, we creat image object and add to data array
+ *     -   with default image link
+ * 
+ *  - Added in some HTML coding to collapse the summary into the card
+ *     - This is toggled (opened/closed) by clicking the link-button
+ *     - This made the page look much cleaner and easier to navigate
  */
 
 function populateShows(shows) {
@@ -74,7 +80,11 @@ function populateShows(shows) {
   $showsList.append($item);
   }
 }
-
+/** Populate episodes list:
+ *     - given list of episodes, adds them to DOM
+ *     - check was added to see if there is episode data
+ *     - if not, give alert at spot where episodes normally would be
+ */
 function populateEpisodes(episodes,$name) {
   const $episodeList = $("#episodes-list");
   $episodeList.empty();
@@ -140,6 +150,15 @@ async function getEpisodes(id) {
   }
   return epArray;
 }
+
+/**
+ *  this is the function that waits for DOM to have been updated with shows
+ *    - when we click the episodes-btn (which looks like link)
+ *    - we run getEpisodes using the id of the closest "show" (.Show)
+ *    - then run populateEpisodes to update DOM with episodes
+ *    - added in some scripting to automatically scroll to episodes
+ *    - along with a button to get back to the shows if need be later
+ */
 
 $("#shows-list").on("click", "#episode-btn", async function handleEpisodeClick(evt) {
   let $id = $(evt.target).closest(".Show").data("show-id");
