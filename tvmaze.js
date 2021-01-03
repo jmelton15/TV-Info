@@ -166,6 +166,6 @@ $("#shows-list").on("click", "#episode-btn", async function handleEpisodeClick(e
 });
 
 $("#back-btn").on("click", function() {
-  document.querySelector(".title").scrollIntoView();
+  document.querySelector("#shows-list").lastChild.scrollIntoView();
 })
 
