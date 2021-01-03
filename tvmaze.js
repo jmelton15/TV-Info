@@ -52,7 +52,7 @@ function populateShows(shows) {
       });
     }
     let $item = $(
-      `<div class="col-6 col-md-6 col-lg-3 Show" data-show-id="${shows[i].show.id}" data-name="${shows[i].show.name}">
+      `<div class="col-6 col-md-6 col-lg-3 mb-2 Show" data-show-id="${shows[i].show.id}" data-name="${shows[i].show.name}">
         <img class="card-img-top" src="${shows[i].show.image.original}" alt="Card image cap">
         <div class="card" data-show-id="${shows[i].show.id}">
           <h5 class="card-title">
@@ -146,4 +146,26 @@ $("#shows-list").on("click", "#episode-btn", async function handleEpisodeClick(e
   let $name = $(evt.target).closest(".Show").attr("data-name");
   let eps = await getEpisodes($id);
   populateEpisodes(eps,$name);
+  document.querySelector(".list-title").scrollIntoView();
+  let distance = $('.list-title').offset().top;
+
+    $(window).scroll(function() {
+      if ( $(this).scrollTop() >= distance ) {
+          // Your div has reached the top
+          $('.list-title').css("font-size", "60px");
+          //$('.list-title').css("text-fill-color", "orange");
+          $('.list-title').css("background-color", "black");
+          $('.list-title').css("text-fill-color", "white");
+      }
+      else {
+        $('.list-title').css("font-size", "");
+        $('.list-title').css("background-color", "white");
+        $('.list-title').css("text-fill-color", "black");
+      }
+  });
 });
+
+$("#back-btn").on("click", function() {
+  document.querySelector(".title").scrollIntoView();
+})
+

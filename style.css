@@ -1,0 +1,69 @@
+html, body {
+    -webkit-background: linear-gradient(#2193b0, #6dd5ed);
+    -moz-background: linear-gradient(#2193b0, #6dd5ed);
+    -o-background: linear-gradient(#2193b0, #6dd5ed);
+    background: linear-gradient(#2193b0, #6dd5ed);
+    background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    width: 100vw;
+    min-height: 100vh;
+}
+
+#shows-list {
+    align-items: flex-end;
+}
+
+.title {
+    font-weight: bolder;
+    -webkit-text-fill-color: white;
+    /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+}
+.list-title {
+    -webkit-text-fill-color: black;
+    /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+    border: 2px solid black;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 20%;
+    margin-top:10px;
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    top:0;
+    background-color:white;
+}
+
+#back-btn {
+    position: -webkit-sticky;
+    /* Safari */
+    position: sticky;
+    top: 100px;
+    font-weight: bolder;
+    -webkit-text-fill-color: white;
+    /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(0, 0, 0);
+    font-size:22px;
+    flex-shrink: 0;
+    margin-top:10px;
+    margin-left:60px;
+	height: calc(70px + 6vw);
+	width: calc(70px + 6vw);
+	border: calc(8px + 0.2vw) solid transparent;
+	background-origin: border-box;
+	background-clip: content-box, border-box;
+	background-size: cover;
+	box-sizing: border-box;
+	box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 50% 10%;
+	background-image: var(--img-url), linear-gradient(to bottom left, #f83600, #f9d423);
+
+}
+
+
