@@ -52,7 +52,7 @@ function populateShows(shows) {
       });
     }
     let $item = $(
-      `<div class="col-xs-6 col-md-6 col-lg-3 Show" data-show-id="${shows[i].show.id}" data-name="${shows[i].show.name}">
+      `<div class="col-6 col-md-6 col-lg-3 Show" data-show-id="${shows[i].show.id}" data-name="${shows[i].show.name}">
         <img class="card-img-top" src="${shows[i].show.image.original}" alt="Card image cap">
         <div class="card" data-show-id="${shows[i].show.id}">
           <h5 class="card-title">
