@@ -16,6 +16,13 @@
         image: <an image from the show data, or a default imege if no image exists, (image isn't needed until later)>
       }
  */
+const numberMap = {First:1, Second:2, Third:3, Fourth:4, Fifth:5, Sixth:6, Seventh:7, Eigth:8, Ninth:9, Tenth:10, Eleventh:11, Twelfth:12, thirteenth:13, Fourteenth:14, Fifteenth:15, Sixteenth:16, Eighteenth:17}; 
+function getKeyFromVal(object,value) {
+  return Object.keys(object).find(key => object[key] === value)
+}
+
+
+
 async function searchShows(q) {
   let showsArray = [];
   // TODO: Make an ajax request to the searchShows api.  Remove
@@ -23,13 +30,13 @@ async function searchShows(q) {
   const response = await axios.get(
     "https://api.tvmaze.com/search/shows?",
     {
-        params: {
-            q,
-        }
+      params: {
+        q,
+      }
     });
-    for (let show in response.data) {
-      showsArray.push(response.data[show]);
-    }
+  for (let show in response.data) {
+    showsArray.push(response.data[show]);
+  }
   return showsArray;
 }
 
@@ -48,7 +55,7 @@ async function searchShows(q) {
 function populateShows(shows) {
   const $showsList = $("#shows-list");
   $showsList.empty();
-  for (let i =0;i<shows.length;i++) {
+  for (let i = 0; i < shows.length; i++) {
     console.log(shows[i].show.id);
     if (shows[i].show.image === null) {
       Object.assign(shows[i].show, {
@@ -71,13 +78,14 @@ function populateShows(shows) {
              <p>${shows[i].show.summary}</p>
             </div>
           </div>
-          <div class="btn-container">
+          <div class="btn-container d-flex justify-content-center">
             <button type="button" class="btn btn-link" id="episode-btn" data-id="${shows[i].show.id}"> Episodes </button>
+            <button type="button" class="btn btn-link" id="cast-btn" data-id="${shows[i].show.id}"> Cast </button>
           </div>
         </div>
       </div>
       `);
-  $showsList.append($item);
+    $showsList.append($item);
   }
 }
 /** Populate episodes list:
@@ -85,33 +93,34 @@ function populateShows(shows) {
  *     - check was added to see if there is episode data
  *     - if not, give alert at spot where episodes normally would be
  */
-function populateEpisodes(episodes,$name) {
+function populateEpisodes(episodes, $name) {
+  $(".section-2").hide();
   const $episodeList = $("#episodes-list");
   $episodeList.empty();
   if (episodes.length === 0) {
-    $("#section-h2").addClass("alert");
-    $("#section-h2").addClass("alert-danger");
-    $("#section-h2").text("No Episodes Found");
+    $("#section-1-h2").addClass("alert");
+    $("#section-1-h2").addClass("alert-danger");
+    $("#section-1-h2").text("No Episodes Found");
   }
   else {
-    $("#section-h2").removeClass("alert");
-    $("#section-h2").removeClass("alert-danger");
-    $("#section-h2").text("Episodes");
-  for (let i =0;i<episodes.length;i++) {
-    console.log(episodes[i].name);
-    let $item = $(
-      `<li id="${i}" data-show-id="${episodes[i].id}">
+    $("#section-1-h2").removeClass("alert");
+    $("#section-1-h2").removeClass("alert-danger");
+
+    for (let i = 0; i < episodes.length; i++) {
+      console.log(episodes[i].name);
+      let $item = $(
+        `<li id="${i}" data-show-id="${episodes[i].id}">
         <b>Episode Name:</b> ${episodes[i].name} -
         <b>Season:</b> ${episodes[i].season} -
         <b>Episode:</b> ${episodes[i].number} 
       </li>
       `);
-    $episodeList.append($item); 
+      $episodeList.append($item);
+    }
   }
-}
-  
+
   $(".list-title").text(`${$name}`);
-  $("section").show();
+  $(".section-1").show();
 }
 
 /** Handle search form submission:
@@ -119,9 +128,9 @@ function populateEpisodes(episodes,$name) {
  *    - get list of matching shows and show in shows list
  */
 
-$("#search-form").on("submit", async function handleSearch (evt) {
+$("#search-form").on("submit", async function handleSearch(evt) {
   evt.preventDefault();
-  
+
   let query = $("#search-query").val();
   if (!query) return;
 
@@ -151,6 +160,65 @@ async function getEpisodes(id) {
   return epArray;
 }
 
+async function getCast(id) {
+  let castArray = [];
+
+  const response = await axios.get(`https://api.tvmaze.com/shows/${id}/cast`);
+  for (let mem in response.data) {
+    castArray.push(response.data[mem]);
+  }
+  return castArray;
+}
+
+function isActive(i) {
+  if (i === 0) {
+    return "active";
+  }
+  else {
+    return "";
+  }
+}
+
+function populateCast(members, $name) {
+  $(".section-1").hide();
+  const $castScroll= $(".carousel-inner");
+  $castScroll.empty();
+  if (members.length === 0) {
+    $("#section-2-h2").addClass("alert");
+    $("#section-2-h2").addClass("alert-danger");
+    $("#section-2-h2").text("No Cast Found");
+  }
+  else {
+    $("#section-2-h2").removeClass("alert");
+    $("#section-2-h2").removeClass("alert-danger");
+
+    for (let i = 0; i < members.length; i++) {
+      console.log(members[i].character.name);
+      let active = isActive(i);
+      let key = getKeyFromVal(numberMap,i+1);
+      if (members[i].person.image === null) {
+        Object.assign(members[i].person, {
+          image: {
+            original: "https://tinyurl.com/tv-missing"
+          }
+        });
+      }
+      let $item = $(`
+        <div class="carousel-item ${active}">
+        <img src="${members[i].person.image.original}" class="d-block w-100" alt="...">
+          <div class="carousel-caption d-none d-md-block">
+            <h3 id="ch-name">${members[i].character.name}</h5>
+            <h5 id="act-name">${members[i].person.name}</p>
+          </div>
+        </div>
+      `);
+      $castScroll.append($item);
+    }
+    $(".list-title").text(`${$name}`);
+    $(".section-2").show();
+  }
+}
+
 /**
  *  this is the function that waits for DOM to have been updated with shows
  *    - when we click the episodes-btn (which looks like link)
@@ -164,27 +232,53 @@ $("#shows-list").on("click", "#episode-btn", async function handleEpisodeClick(e
   let $id = $(evt.target).closest(".Show").data("show-id");
   let $name = $(evt.target).closest(".Show").attr("data-name");
   let eps = await getEpisodes($id);
-  populateEpisodes(eps,$name);
+  populateEpisodes(eps, $name);
   document.querySelector(".list-title").scrollIntoView();
   let distance = $('.list-title').offset().top;
 
-    $(window).scroll(function() {
-      if ( $(this).scrollTop() >= distance ) {
-          // Your div has reached the top
-          $('.list-title').css("font-size", "60px");
-          //$('.list-title').css("text-fill-color", "orange");
-          $('.list-title').css("background-color", "black");
-          $('.list-title').css("text-fill-color", "white");
-      }
-      else {
-        $('.list-title').css("font-size", "");
-        $('.list-title').css("background-color", "white");
-        $('.list-title').css("text-fill-color", "black");
-      }
+  $(window).scroll(function () {
+    if ($(this).scrollTop() >= distance) {
+      // Your div has reached the top
+      $('.list-title').css("font-size", "60px");
+      //$('.list-title').css("text-fill-color", "orange");
+      $('.list-title').css("background-color", "black");
+      $('.list-title').css("text-fill-color", "white");
+    }
+    else {
+      $('.list-title').css("font-size", "");
+      $('.list-title').css("background-color", "white");
+      $('.list-title').css("text-fill-color", "black");
+    }
+  });
+});
+$("#shows-list").on("click", "#cast-btn", async function handleCastClick(evt) {
+  let $id = $(evt.target).closest(".Show").data("show-id");
+  let $name = $(evt.target).closest(".Show").attr("data-name");
+  let cast = await getCast($id);
+  populateCast(cast, $name);
+  document.querySelector("#section-2-h2").scrollIntoView();
+  let distance = $('#section-2-h2').offset().top;
+
+  $(window).scroll(function () {
+    if ($(this).scrollTop() >= distance) {
+      // Your div has reached the top
+      $('.list-title').css("font-size", "60px");
+      //$('.list-title').css("text-fill-color", "orange");
+      $('.list-title').css("background-color", "black");
+      $('.list-title').css("text-fill-color", "white");
+    }
+    else {
+      $('.list-title').css("font-size", "");
+      $('.list-title').css("background-color", "white");
+      $('.list-title').css("text-fill-color", "black");
+    }
   });
 });
 
-$("#back-btn").on("click", function() {
+$("#back-btn-1").on("click", function () {
   document.querySelector(".title").scrollIntoView();
-})
+});
+$("#back-btn-2").on("click", function () {
+  document.querySelector(".title").scrollIntoView();
+});
 
