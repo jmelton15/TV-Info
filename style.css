@@ -1,15 +1,7 @@
-html, body {
-    -webkit-background: linear-gradient(#2193b0, #6dd5ed);
-    -moz-background: linear-gradient(#2193b0, #6dd5ed);
-    -o-background: linear-gradient(#2193b0, #6dd5ed);
-    background: linear-gradient(#2193b0, #6dd5ed);
-    background-repeat: no-repeat;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    width: 100vw;
-    min-height: 100vh;
+
+body {
+    width:100%;
+    height:100%;
 }
 
 .top-bar {
@@ -27,7 +19,7 @@ html, body {
 
 .title {
     font-weight: bolder;
-    -webkit-text-fill-color: white;
+    -webkit-text-fill-color: black;
     /* Will override color (regardless of order) */
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(0, 0, 0);
@@ -55,7 +47,7 @@ html, body {
     position: sticky;
     top: 100px;
     font-weight: bolder;
-    -webkit-text-fill-color: white;
+    -webkit-text-fill-color: black;
     /* Will override color (regardless of order) */
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: rgb(0, 0, 0);
@@ -63,9 +55,7 @@ html, body {
     flex-shrink: 0;
     margin-top:10px;
     margin-left:60px;
-	height: calc(70px + 6vw);
-	width: calc(70px + 6vw);
-	border: calc(8px + 0.2vw) solid transparent;
+	border: 12px solid transparent;
 	background-origin: border-box;
 	background-clip: content-box, border-box;
 	background-size: cover;
@@ -75,23 +65,22 @@ html, body {
 	background-image: var(--img-url), linear-gradient(to bottom left, #f83600, #f9d423);
 
 }
-#actor-image {
-    height:200px;
-    width:200px;
-}
 span {
     font-size: 25px;
 }
-
 #section-2-h2, #section-1-h2 {
     text-decoration: underline;
 }
 
-.carousel-item,
+
 .carousel-inner,
 .carousel-inner img {
   height:100%;
   width:auto;
+}
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+    background-color: black;
 }
 
 .carousel-caption {
@@ -122,4 +111,5 @@ span {
     .list-title {
         font-size:30px !important;
     }
+ 
 }
