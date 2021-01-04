@@ -291,3 +291,9 @@ $("#back-btn-2").on("click", function () {
   document.querySelector(".title").scrollIntoView();
 });
 
+if ($(window).width() <= 900) {
+  $('.list-title').on("click", function () {
+    document.querySelector(".title").scrollIntoView();
+  })
+}
+
