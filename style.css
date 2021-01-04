@@ -62,8 +62,7 @@ body {
 	box-sizing: border-box;
 	box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
     border-radius: 50% 10%;
-	background-image: var(--img-url), linear-gradient(to bottom left, #f83600, #f9d423);
-
+    background-image: var(--img-url), linear-gradient(to bottom left, #f83600, #f9d423);
 }
 span {
     font-size: 25px;
@@ -73,12 +72,19 @@ span {
 }
 .carousel-inner {
  display:flex;
- justify-content: center;
- flex-direction: column;
+ justify-content: space-between; 
+ flex-direction: row;
+ 
 }
 .carousel-inner img {
     height:500px;
 }
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color:black;
+}
+
 
 #ch-name, #act-name {
     color:black;
