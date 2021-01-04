@@ -105,7 +105,7 @@ function populateEpisodes(episodes, $name) {
   else {
     $("#section-1-h2").removeClass("alert");
     $("#section-1-h2").removeClass("alert-danger");
-
+    $("#section-1-h2").text("Episodes");
     for (let i = 0; i < episodes.length; i++) {
       console.log(episodes[i].name);
       let $item = $(
@@ -198,7 +198,7 @@ function populateCast(members, $name) {
   else {
     $("#section-2-h2").removeClass("alert");
     $("#section-2-h2").removeClass("alert-danger");
-
+    $("#section-2-h2").text("Cast");
     for (let i = 0; i < members.length; i++) {
       console.log(members[i].character.name);
       let active = isActive(i);
