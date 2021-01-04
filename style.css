@@ -71,41 +71,19 @@ span {
 #section-2-h2, #section-1-h2 {
     text-decoration: underline;
 }
-
-
-.carousel-inner,
+.carousel-inner {
+ display:flex;
+ justify-content: center;
+ flex-direction: column;
+}
 .carousel-inner img {
-  height:100%;
-  width:auto;
-}
-.carousel-control-next-icon,
-.carousel-control-prev-icon {
-    background-color: black;
-}
-
-.carousel-caption {
-    display:flex !important;
-    justify-content: center !important;
-    justify-items: center !important;
-    flex-direction: column !important;;
-    padding-top:0 !important; 
-    padding-bottom:0 !important; 
-    color: #fff;
-    text-align: center;
-    flex-wrap:wrap !important;
+    height:500px;
 }
 
 #ch-name, #act-name {
     color:black;
     background-color:white;
-    width:200px;
-    margin:auto;
 }
-.carousel {
-    height: 500px;
-    display:flex;
-    justify-content: center;
-  }
 
 @media (max-width:900px) {
     .list-title {

@@ -213,9 +213,11 @@ function populateCast(members, $name) {
       let $item = $(`
         <div class="carousel-item ${active}">
         <img src="${members[i].person.image.original}" class="d-block w-100 img-fluid" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-            <h3 id="ch-name">${members[i].character.name}</h5>
-            <h5 id="act-name">${members[i].person.name}</p>
+          <div class="carousel-caption d-block">
+            <h3 id="ch-name">${members[i].character.name}<br>
+                  <span>${members[i].person.name}</span>
+            </h3>
+            
           </div>
         </div>
       `);
