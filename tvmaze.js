@@ -69,11 +69,11 @@ function populateShows(shows) {
         <img class="card-img-top" src="${shows[i].show.image.original}" alt="Card image cap">
         <div class="card" data-show-id="${shows[i].show.id}">
           <h5 class="card-title">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#multiCollapseExample${i}" aria-expanded="false" aria-controls="collapseExample">
+            <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample${i}" aria-expanded="false" aria-controls="multiCollapseExample${i}">
               <b>${shows[i].show.name}</b> <br> (click for summary)
             </button>
           </h5>
-          <div class="collapse" id="multiCollapseExample${i}">
+          <div class="collapse multi-collapse" id="multiCollapseExample${i}">
             <div class="card-body">
              <p>${shows[i].show.summary}</p>
             </div>
