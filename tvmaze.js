@@ -134,11 +134,18 @@ $("#search-form").on("submit", async function handleSearch(evt) {
   let query = $("#search-query").val();
   if (!query) return;
 
-  $("#episodes-area").hide();
+  $(".section-1").hide();
+  $(".section-2").hide();
+  const $showsList = $("#shows-list");
+  $showsList.empty();
+  const $castScroll= $(".carousel-inner");
+  $castScroll.empty();
+
 
   let shows = await searchShows(query);
 
   populateShows(shows);
+  
 });
 
 
